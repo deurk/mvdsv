@@ -19,7 +19,9 @@ mvdsv_sources = [
 	'src/pr2_cmds.c',
 	'src/pr2_edict.c',
 	'src/pr2_exec.c',
-	'src/pr2_vm.c',
+	'src/vm.c',
+	'src/vm_interpreted.c',
+	'src/vm_x86.c',
 	'src/pr_cmds.c',
 	'src/pr_edict.c',
 	'src/pr_exec.c',
@@ -111,6 +113,10 @@ if target_machine.cpu_family() == 'x86' and target_machine.system() != 'darwin'
 			c_args : asm_c_args
 		)
 	)
+endif
+
+if target_machine.system() == 'windows' 
+    link_args += '-mwindows'
 endif
 
 executable('mvdsv', mvdsv_sources,
